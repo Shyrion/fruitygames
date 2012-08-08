@@ -1,0 +1,26 @@
+<article>
+  <div>
+    <div class="article_avatar">
+      <img src="images/logo_fg.png" />
+      <div><p><%= article.user.pseudo if article.user %></p></div>
+    </div>
+
+    <div class="article_title_date">
+      <div class="article_title">
+        <p>
+          <%= article.title %>
+        </p>
+      </div>
+    
+      <div class="article_date">
+        <i>Le <%= article.date %></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="article_content">
+    <p>
+      <%= article.content %> <%= link_to "Lire la suite...", article_path(article) %></a>
+    </p>
+  </div>
+</article>

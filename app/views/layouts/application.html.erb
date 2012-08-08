@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fruity Games - Gamos studios della muertes</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag    "style", :media => "all" %>
+  <%= stylesheet_link_tag    "lightbox", :media => "all" %>
+  <!-- Frameworks -->
+  <%= javascript_include_tag "mootools-core-1.4.5-full-compat" %>
+  <!-- Objects -->
+  <%= javascript_include_tag "logstuff_fade_object" %>
+  <!-- Misc -->
+  <%= javascript_include_tag "fruityscripts" %>
+  <%= csrf_meta_tags %>
+</head>
+<body onload="initFS(); faderOverlay = new Fader('fader');">
+
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, :id => "flash_#{name}" %>
+  <% end %>
+
+  <div id="navigation">
+      <%= image_tag("logo_fg-30.png") %>
+			
+      <nav id="top_bar">
+        <div>
+          <div>
+    			<% if current_user %>
+            <span style="color: white"> Logged in as <%= current_user.pseudo %> </span>
+            <span class="separator"></span>
+    				<%= link_to "Se déconnecter", log_out_path %>
+    			<% else %>
+		        <div class="relative_position">
+              <a id="connect_button" href="#" onClick="faderOverlay.onConnect()">Se connecter</a>
+              <div id="login_box">
+                <div>
+                	<%= form_tag sessions_path do %>
+        							<%= text_field_tag :pseudo, params[:pseudo], :placeholder => "Identifiant" %>
+        							<%= password_field_tag :password, params[:password], :placeholder => "Mot de passe" %>
+        							<%= submit_tag "Se connecter" %>
+        					<% end %>
+                </div>
+              </div>
+            </div>
+            
+            <span class="separator"></span>
+            
+            <div class="relative_position">
+              <a id="register_button" href="#"  onClick="faderOverlay.onRegister()">Créer un compte</a>
+              <div id="register_box">
+                <div>
+                  <%= form_for @user do |f| %>
+                      <%= f.text_field :pseudo, :placeholder => "Identifiant" %>
+                      <%= f.password_field :password, :placeholder => "Mot de passe"  %>
+                      <%= f.password_field :password_confirmation, :placeholder => "Confirmation mot de passe" %>
+                      <%= f.email_field :email, :placeholder => "Email"%>
+                    
+                      <%= f.submit :value => "S'enregistrer"%>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+			<% end %>
+          </div>
+          <div>
+            <a href="#"><%= image_tag("fr.jpg") %></a>
+            <a href="#"><%= image_tag("en.jpg") %></a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div id="content">
+		<header>
+			<%= image_tag("banner.jpg") %>
+		</header>
+
+		<nav id="menu">
+			<ul>
+			  <li><a href="#">Accueil</a></li>
+			  <li><a href="jeux.html">Jeux</a></li>
+			  <li><a href="contact.html">Contact</a></li>
+			</ul>
+		</nav>
+
+		<div id="id_bar">
+			<div id="background">
+				<div id="content">
+					
+				</div>
+			</div>
+		</div>
+
+		<%= yield %>
+	</div>
+
+    <footer>
+      <p><q>D'après les derniers chiffres, 68% des sondages sont faux.</q></p>
+    </footer>
+    
+  </body>
+</html>
