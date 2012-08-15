@@ -1,0 +1,7 @@
+<div id="all_articles">
+	<% @users.each do |user| %>
+		<%= user.pseudo %><br />
+		<%= user.email %><br />
+		<%= user.user_type %><br />
+	<% end %>
+</div>

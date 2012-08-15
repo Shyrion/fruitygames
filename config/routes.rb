@@ -9,17 +9,21 @@ FruityGames::Application.routes.draw do
   get "log_out" => "sessions#destroy", :as => "log_out"
   
   get "sign_up" => "users#new", :as => "sign_up"
+  get "/users" => "users#index"
   get "/users/:pseudo" => "users#show"
   get "/users/:pseudo/edit" => "users#edit", :as => "user_edit"
   post "/users/:pseudo/edit" => "users#update"
+
+  get "/profile" => "users#edit"
+  post "/users/:id" => "users#update"
   
-  get "articles/read/:id" => "articles#read"
+  get "articles/:id" => "articles#read"
   
   #match "/users/:name" => "users#show", :via => [:get] <=équivalents=> get "/users/:name" => "users#show"
     
   root :to => "articles#index"
   
-  resources :users, :only => [:new, :create]
+  resources :users, :only => [:new, :create, :update, :edit]
   resources :sessions
   resources :articles
 end

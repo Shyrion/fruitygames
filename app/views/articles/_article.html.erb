@@ -1,7 +1,7 @@
 <article>
   <div>
     <div class="article_avatar">
-      <img src="images/logo_fg.png" />
+      <%= image_tag avatar_url(article.user) if article.user %>
       <div><p><%= article.user.pseudo if article.user %></p></div>
     </div>
 
@@ -20,7 +20,7 @@
 
   <div class="article_content">
     <p>
-      <%= article.content %> <%= link_to "Lire la suite...", article_path(article) %></a>
+      <%= article.content %> <%= link_to("Lire la suite...", article_path(article)) if read_more %></a>
     </p>
   </div>
 </article>

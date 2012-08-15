@@ -1,5 +1,5 @@
 <div id="all_articles">
 	<% @articles.each do |article| %>
-	  <%= render :partial => "article", :locals => { :article => article } %>
+	  <%= render :partial => "article", :locals => { :article => article, :read_more => true } %>
 	<% end %>
 </div>

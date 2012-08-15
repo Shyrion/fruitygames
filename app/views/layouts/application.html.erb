@@ -15,9 +15,11 @@
 </head>
 <body onload="initFS(); faderOverlay = new Fader('fader');">
 
-  <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg, :id => "flash_#{name}" %>
-  <% end %>
+  <div id="notices">
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    <% end %>
+  </div>
 
   <div id="navigation">
       <%= image_tag("logo_fg-30.png") %>
@@ -60,8 +62,7 @@
                 </div>
               </div>
             </div>
-
-			<% end %>
+          <% end %>
           </div>
           <div>
             <a href="#"><%= image_tag("fr.jpg") %></a>
@@ -78,9 +79,9 @@
 
 		<nav id="menu">
 			<ul>
-			  <li><a href="#">Accueil</a></li>
-			  <li><a href="jeux.html">Jeux</a></li>
-			  <li><a href="contact.html">Contact</a></li>
+			  <li><%= link_to "Accueil", log_out_path %></li>
+			  <li><%= link_to "Jeux", log_out_path %></li>
+			  <li><%= link_to "Contact", log_out_path %></li>
 			</ul>
 		</nav>
 

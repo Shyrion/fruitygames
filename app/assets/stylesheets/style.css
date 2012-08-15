@@ -68,6 +68,7 @@ body
 	background: -ms-linear-gradient(top, #71DdD0 0%,#218d80 100%); 0%,#319d90 100%);
 
 	font-size: 12pt;
+	font-family: Helvetica;
 
 	width: 100%;
 	height: 100%;
@@ -115,13 +116,13 @@ nav
 
 q:before
 {
-	content:url("../images/quote_left.png");
+	content:url("/images/quote_left.png");
 	padding-right: 0.5em;
 }
 
 q:after
 {
-	content:url("../images/quote_right.png");
+	content:url("/images/quote_right.png");
 	padding-left: 0.5em;
 }
 
@@ -230,19 +231,11 @@ ul
 
 	text-align: center;
 
-	font-size: 16pt;
-	font-family: "Tempesta7" Arial;
+	font-size: 20pt;
+	font-family: "N-Gage" Helvetica;
 
 	height: 2em;
 	padding: 0.25em 0;
-}
-
-#menu li
-{
-	display: inline-block;
-
-	list-style-type: none;
-	padding: 0em 2em;
 }
 
 #menu a
@@ -268,6 +261,19 @@ ul
 
 	-webkit-transition: background-color 500ms ease;
 	background-color: rgba(240,239,68,0.2) ;
+}
+
+#menu li
+{
+	display: inline-block;
+
+	list-style-type: none;
+	padding: 0em 2em;
+}
+
+#menu ul
+{
+	padding: 1em 0em;
 }
 
 #navigation
@@ -357,7 +363,6 @@ ul
 {
 	display: table-cell;
 
-	background: black;
 	text-align: center;
 
 	width: 150px;
