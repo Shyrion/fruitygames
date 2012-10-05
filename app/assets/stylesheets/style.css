@@ -74,6 +74,7 @@ body
 	height: 100%;
 
 	min-width: 1000px;
+	min-height: 600px;
 	margin: 0;
 	padding: 0;
 }
@@ -232,7 +233,7 @@ ul
 	text-align: center;
 
 	font-size: 20pt;
-	font-family: "N-Gage" Helvetica;
+	font-family: "Tempesta7" Helvetica;
 
 	height: 2em;
 	padding: 0.25em 0;
@@ -273,7 +274,7 @@ ul
 
 #menu ul
 {
-	padding: 1em 0em;
+	padding: 0em;
 }
 
 #navigation
