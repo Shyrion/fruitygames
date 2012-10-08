@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(params[:article])
-    @article.date = DateTime.now.beginning_of_day
+    @article.creation_date = DateTime.now.beginning_of_day
     @article.user = current_user
     print "-------article user-----------"
     print @article.user

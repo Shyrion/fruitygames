@@ -2,7 +2,8 @@
   <div>
     <div class="article_avatar">
       <%= image_tag avatar_url(article.user) if article.user %>
-      <div><p><%= article.user.pseudo if article.user %></p></div>
+      <div><p><%= link_to(article.user.username, user_path(article.user)) if article.user %></p></div>
+      <!--<div><p><%= article.user.username if article.user %></p></div>-->
     </div>
 
     <div class="article_title_date">
@@ -13,7 +14,7 @@
       </div>
     
       <div class="article_date">
-        <i>Le <%= article.date %></i>
+        <i>Le <%= article.creation_date.to_date %></i>
       </div>
     </div>
   </div>

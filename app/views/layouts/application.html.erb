@@ -28,7 +28,7 @@
         <div>
           <div>
     			<% if current_user %>
-            <span style="color: white"> Logged in as <%= current_user.pseudo %> </span>
+            <span style="color: white"> Logged in as <%= current_user.username %> </span>
             <span class="separator"></span>
     				<%= link_to "Se déconnecter", log_out_path %>
     			<% else %>
@@ -37,7 +37,7 @@
               <div id="login_box">
                 <div>
                 	<%= form_tag sessions_path do %>
-        							<%= text_field_tag :pseudo, params[:pseudo], :placeholder => "Identifiant" %>
+        							<%= text_field_tag :username, params[:username], :placeholder => "Identifiant" %>
         							<%= password_field_tag :password, params[:password], :placeholder => "Mot de passe" %>
         							<%= submit_tag "Se connecter" %>
         					<% end %>
@@ -52,7 +52,7 @@
               <div id="register_box">
                 <div>
                   <%= form_for @user do |f| %>
-                      <%= f.text_field :pseudo, :placeholder => "Identifiant" %>
+                      <%= f.text_field :username, :placeholder => "Identifiant" %>
                       <%= f.password_field :password, :placeholder => "Mot de passe"  %>
                       <%= f.password_field :password_confirmation, :placeholder => "Confirmation mot de passe" %>
                       <%= f.email_field :email, :placeholder => "Email"%>

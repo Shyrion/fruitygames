@@ -12,8 +12,10 @@ class UsersController < ApplicationController
   def create
     print "create user"
   	@user = User.new(params[:user])
-  	@user[:user_type] = 3 # regular_user
-  	@user[:creation_date] = DateTime.now.beginning_of_day
+    @user[:user_type] = 3 # regular_user
+    @user[:coins] = 0
+    @user[:birthday] = DateTime.now.to_date
+  	@user[:inscription_date] = DateTime.now.to_date
   	if @user.save
   		redirect_to root_url, :notice => "Signed up!"
   	else
@@ -22,17 +24,17 @@ class UsersController < ApplicationController
   end
   
   def show
-  	@user = User.find_by_pseudo(params[:pseudo])
+  	@user = User.find_by_id(params[:id])
   	if @user == nil
 	  	redirect_to root_url, :notice => "User does not exist"
 	  end
   end
   
   def edit
-    if params[:pseudo]
-      @user = User.find_by_pseudo(params[:pseudo]) # DRY :/
+    if params[:id]
+      @user = User.find_by_id(params[:id]) # DRY :/
     else
-      @user = current_user
+      @user = current_user # get /profile
     end
 
   	if @user == nil
@@ -43,18 +45,19 @@ class UsersController < ApplicationController
   def update
   	user = User.find_by_id(params[:id])
 
-    Rails.logger.info("PARAMS: #{params.inspect}")
-
 		if user == nil
 			redirect_to root_url, :notice => "User does not exist"
 			return
 		end
-		
-    user[:email] = params[:email]
+
+    user[:email] = params[:user][:email]
 		user[:user_type] = params[:user_type]
-		user.save()
-			
-		redirect_to "/profile", :notice => "User successfully updated"
+
+		if user.save()
+      redirect_to "/profile", :notice => "User successfully updated"
+    else
+      print "SAVE PAS OK !!!!!!!!!!!!!!!!"
+    end
 		
   end
 end

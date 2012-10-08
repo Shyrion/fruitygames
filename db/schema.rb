@@ -16,23 +16,27 @@ ActiveRecord::Schema.define(:version => 20120715133501) do
     t.integer  "user_id"
     t.string   "title"
     t.text     "content"
-    t.datetime "date"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "creation_date"
+    t.datetime "update_date"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   add_index "articles", ["user_id"], :name => "index_articles_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "pseudo"
+    t.string   "username"
     t.string   "password_hash"
     t.string   "password_salt"
-    t.string   "email"
     t.integer  "user_type"
-    t.date     "creation_date"
-    t.string   "avatar"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string   "email"
+    t.string   "avatar_url"
+    t.date     "birthday"
+    t.integer  "coins"
+    t.date     "inscription_date"
+    t.date     "last_connection_date"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
 end

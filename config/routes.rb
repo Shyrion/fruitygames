@@ -10,12 +10,12 @@ FruityGames::Application.routes.draw do
   
   get "sign_up" => "users#new", :as => "sign_up"
   get "/users" => "users#index"
-  get "/users/:pseudo" => "users#show"
-  get "/users/:pseudo/edit" => "users#edit", :as => "user_edit"
-  post "/users/:pseudo/edit" => "users#update"
+  get "/users/:id" => "users#show"
+  get "/users/:id/edit" => "users#edit", :as => "user_edit"
+  post "/users/:id/edit" => "users#update"
 
   get "/profile" => "users#edit"
-  post "/users/:id" => "users#update"
+  #post "/users/:id" => "users#update"
   
   get "articles/:id" => "articles#read"
   

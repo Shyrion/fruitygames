@@ -12,7 +12,7 @@
 		</div>
 	<% end %>
 
-	<%= hidden_field(:user, :pseudo) %>
+	<%= hidden_field(:user, :username) %>
 
 	<p>
 		<%= f.label :password %><br />
@@ -26,10 +26,12 @@
 		<%= f.label :email %><br />
 		<%= f.text_field :email %>
 	</p>
+	<% if (current_user && (current_user.user_type == 1)) %>
 	<p>
 		<%= f.label :user_type %><br />
 		<%= select_tag(:user_type, options_for_select([['Admin', 1], ['Moderator', 2], ['Regular User', 3]], @user.user_type)) %>
 	</p>
+	<% end %>
 	
 	<p class="button"><%= f.submit %></p>
 <% end %>
