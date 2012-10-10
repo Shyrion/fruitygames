@@ -1,5 +1,8 @@
 function initFS() {
 	disableSelectionFor(".game_tags>span");
+	fader = new Fader();
+	loginRegisterBox = new LoginRegisterBox({}, fader);
+	noticeBoxManager = new NoticeBoxManager({}, fader);
 }
 
 function disableSelectionFor(cssSelector) {

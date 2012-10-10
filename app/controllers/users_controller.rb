@@ -1,4 +1,16 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 class UsersController < ApplicationController
+
+  before_filter :is_logged_in, :only => [:edit, :update, :add_friend]
+
+  def is_logged_in
+    if current_user == nil
+      redirect_to root_url, :notice => "Vous n'êtes pas connecté(e)"
+      return
+    end
+  end
 
   def index
     @user = User.new
@@ -10,14 +22,13 @@ class UsersController < ApplicationController
   end
   
   def create
-    print "create user"
   	@user = User.new(params[:user])
     @user[:user_type] = 3 # regular_user
     @user[:coins] = 0
     @user[:birthday] = DateTime.now.to_date
   	@user[:inscription_date] = DateTime.now.to_date
   	if @user.save
-  		redirect_to root_url, :notice => "Signed up!"
+  		redirect_to root_url, :notice => "Votre compte a été créé avec succès"
   	else
   		render "new"
   	end
@@ -26,8 +37,10 @@ class UsersController < ApplicationController
   def show
   	@user = User.find_by_id(params[:id])
   	if @user == nil
-	  	redirect_to root_url, :notice => "User does not exist"
+	  	redirect_to root_url, :notice => "L'utilisateur n'existe pas"
 	  end
+
+    print @user.inspect
   end
   
   def edit
@@ -37,16 +50,40 @@ class UsersController < ApplicationController
       @user = current_user # get /profile
     end
 
-  	if @user == nil
-	  	redirect_to root_url, :notice => "User does not exist"
-	  end
+    if @user == nil
+      redirect_to root_url, :notice => "L'utilisateur n'existe pas"
+      return
+    end
+
+    if @user != current_user
+      redirect_to root_url, :notice => "L'utilisateur recherché n'est pas celui actuellement connecté"
+      return
+    end
+
+    @waiting_friends = []
+    @real_friends = []
+    @stalker_friends = []
+
+    @user.friends.each do |friend|
+      if (friend.friends.include?(@user))
+        @real_friends << friend
+      else
+        @waiting_friends << friend
+      end
+    end
+
+    User.all.each do |user|
+      if (user.friends.include?(@user) and !@user.friends.include?(user))
+        @stalker_friends << user
+      end
+    end
   end
   
   def update
   	user = User.find_by_id(params[:id])
 
 		if user == nil
-			redirect_to root_url, :notice => "User does not exist"
+			redirect_to root_url, :notice => "L'utilisateur n'existe pas"
 			return
 		end
 
@@ -54,10 +91,25 @@ class UsersController < ApplicationController
 		user[:user_type] = params[:user_type]
 
 		if user.save()
-      redirect_to "/profile", :notice => "User successfully updated"
+      redirect_to "/profile", :notice => "Votre profil a été correctement mis à jour"
     else
       print "SAVE PAS OK !!!!!!!!!!!!!!!!"
     end
 		
   end
+
+  def add_friend
+    user = User.find_by_id(params[:id])
+
+    if user == nil
+      redirect_to root_url, :notice => "L'utilisateur n'existe pas"
+      return
+    end
+
+    current_user.friends << user
+
+    redirect_to root_url, :notice => "#{user.username} fait maintenant partie de vos amis"
+
+  end
+
 end

@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
 
 	has_many :articles
+	has_and_belongs_to_many :friends, :class_name => "User",
+    	:foreign_key => "user1_id",
+    	:association_foreign_key => "user2_id"
 
 	attr_accessible :username, :email, :user_type, :password, :password_confirmation
 
@@ -23,9 +26,10 @@ class User < ActiveRecord::Base
 		end
 	end
 	
-	def self.is_admin(id)
-		user = find_by_id(id)
-		user.user_type == 2
+	def self.is_admin()#id
+		#user = find_by_id(id)
+		#user.user_type == 1
+		self.user_type == 1
 	end
 
 	def encrypt_password

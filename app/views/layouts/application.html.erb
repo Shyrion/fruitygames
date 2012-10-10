@@ -2,23 +2,35 @@
 <html>
 <head>
   <title>Fruity Games - Gamos studios della muertes</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "style", :media => "all" %>
+  <%= stylesheet_link_tag    "layout", :media => "all" %>
   <%= stylesheet_link_tag    "lightbox", :media => "all" %>
   <!-- Frameworks -->
   <%= javascript_include_tag "mootools-core-1.4.5-full-compat" %>
   <!-- Objects -->
-  <%= javascript_include_tag "logstuff_fade_object" %>
+  <%= javascript_include_tag "Fader" %>
+  <%= javascript_include_tag "LoginRegisterBox" %>
+  <%= javascript_include_tag "NoticeBox" %>
+  <%= javascript_include_tag "NoticeBoxManager" %>
   <!-- Misc -->
   <%= javascript_include_tag "fruityscripts" %>
   <%= csrf_meta_tags %>
 </head>
-<body onload="initFS(); faderOverlay = new Fader('fader');">
+<body onload="initFS();">
 
   <div id="notices">
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
-    <% end %>
+
+    <div id="notice_boxes_wrapper">
+      <% flash.each do |name, msg| %>
+      <div class="notice_box">
+        <div class="notice_close_button"></div>
+        <div class="notice_content"><%= msg %></div>
+      </div>
+      <!--<%= content_tag :div, msg, :class => "notice_box" %>-->
+      <% end %>
+    </div>
   </div>
 
   <div id="navigation">
@@ -28,12 +40,12 @@
         <div>
           <div>
     			<% if current_user %>
-            <span style="color: white"> Logged in as <%= current_user.username %> </span>
+            <span style="color: white"><%= link_to current_user.username, '/profile' %> </span>
             <span class="separator"></span>
     				<%= link_to "Se déconnecter", log_out_path %>
     			<% else %>
 		        <div class="relative_position">
-              <a id="connect_button" href="#" onClick="faderOverlay.onConnect()">Se connecter</a>
+              <a id="connect_button" href="#" onClick="loginRegisterBox.onConnect()">Se connecter</a>
               <div id="login_box">
                 <div>
                 	<%= form_tag sessions_path do %>
@@ -48,7 +60,7 @@
             <span class="separator"></span>
             
             <div class="relative_position">
-              <a id="register_button" href="#"  onClick="faderOverlay.onRegister()">Créer un compte</a>
+              <a id="register_button" href="#"  onClick="loginRegisterBox.onRegister()">Créer un compte</a>
               <div id="register_box">
                 <div>
                   <%= form_for @user do |f| %>
@@ -79,9 +91,9 @@
 
 		<nav id="menu">
 			<ul>
-			  <li><%= link_to "Accueil", log_out_path %></li>
-			  <li><%= link_to "Jeux", log_out_path %></li>
-			  <li><%= link_to "Contact", log_out_path %></li>
+			  <li><%= link_to "Accueil", root_path %></li>
+			  <li><%= link_to "Jeux", articles_path %></li>
+			  <li><%= link_to "Contact", articles_path %></li>
 			</ul>
 		</nav>
 

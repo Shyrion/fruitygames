@@ -1,4 +1,4 @@
-<h1>My profile</h1>
+<h1>Mon profil</h1>
 
 <%= form_for @user do |f| %>
 	<% if @user.errors.any? %>
@@ -15,17 +15,40 @@
 	<%= hidden_field(:user, :username) %>
 
 	<p>
-		<%= f.label :password %><br />
+		<%= f.label :password, 'Mot de passe' %><br />
 		<%= f.password_field :password %>
 	</p>
 	<p>
-		<%= f.label :password_confirmation %><br />
+		<%= f.label :password_confirmation, 'Confirmation du mot de passe' %><br />
 		<%= f.password_field :password_confirmation %>
 	</p>
 	<p>
 		<%= f.label :email %><br />
 		<%= f.text_field :email %>
 	</p>
+	<p>
+		<%= f.label :birthday, 'Anniversaire' %><br />
+		<%= date_select('user', 'birthday', :order => [:day, :month, :year], :use_month_names => %w(Janvier Février Mars Avril Mai Juin Juillet Août Septembre Octobre Novembre Décembre)) %>
+	</p>
+	<p>
+		<%= f.label :real_friends, 'Amis' %><br />
+		<% @real_friends.each do |friend| %>
+			<%= friend.username %>
+		<% end %>
+	</p>
+	<p>
+		<%= f.label :waiting_friends, 'Amis en attente' %><br />
+		<% @waiting_friends.each do |friend| %>
+			<%= friend.username %>
+		<% end %>
+	</p>
+	<p>
+		<%= f.label :stalker_friends, 'Ils m\'ont ajouté' %><br />
+		<% @stalker_friends.each do |friend| %>
+			<%= friend.username %> <%= link_to "L'ajouter, peu chère...", :controller => :users, :action => :add_friend, :id => friend.id %>
+		<% end %>
+	</p>
+
 	<% if (current_user && (current_user.user_type == 1)) %>
 	<p>
 		<%= f.label :user_type %><br />
@@ -33,5 +56,5 @@
 	</p>
 	<% end %>
 	
-	<p class="button"><%= f.submit %></p>
+	<p class="button"><%= f.submit 'Modifier' %></p>
 <% end %>

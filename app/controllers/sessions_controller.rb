@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 class SessionsController < ApplicationController
   def new
     @user = User.new
@@ -11,15 +14,15 @@ class SessionsController < ApplicationController
       if (user.save())
         print user.inspect
       end
-  		redirect_to root_url, :notice => "Logged in !"
+  		redirect_to root_url, :notice => "Vous êtes maintenant connecté(e)"
   	else
-  		flash.now.alert = "Invalid email or password"
+  		flash.now.alert = "Combinaison identifiant / mot de passe incorrecte"
       redirect_to root_url
   	end
   end
   
   def destroy
   		session[:user_id] = nil
-  		redirect_to root_url, :notice => "Logged out successfully"
+  		redirect_to root_url, :notice => "Vous êtes maintenant déconnecté(e)"
   end
 end

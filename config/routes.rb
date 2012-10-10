@@ -11,8 +11,9 @@ FruityGames::Application.routes.draw do
   get "sign_up" => "users#new", :as => "sign_up"
   get "/users" => "users#index"
   get "/users/:id" => "users#show"
-  get "/users/:id/edit" => "users#edit", :as => "user_edit"
+  get "/users/:id/edit" => "users#edit"
   post "/users/:id/edit" => "users#update"
+  get "users/:id/add" => "users#add_friend"
 
   get "/profile" => "users#edit"
   #post "/users/:id" => "users#update"
@@ -23,7 +24,7 @@ FruityGames::Application.routes.draw do
     
   root :to => "articles#index"
   
-  resources :users, :only => [:new, :create, :update, :edit]
+  resources :users, :only => [:new, :create, :update, :edit, :show]
   resources :sessions
   resources :articles
 end
