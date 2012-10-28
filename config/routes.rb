@@ -1,10 +1,20 @@
 FruityGames::Application.routes.draw do
 
+  get "games/index"
+  get "games/new"
+  post "games/create"
+  get "games/show"
+  get "games/edit"
+  post "games/update"
+  get "games/delete"
+  get "games/:id" => "games#show"
+
   get "articles/index"
   get "articles/new"
-  get "articles/create"
-  get "articles/update"
+  post "articles/create"
+  post "articles/update"
   get "articles/delete"
+  get "articles/:id" => "articles#read"
 
   get "log_out" => "sessions#destroy", :as => "log_out"
   
@@ -18,7 +28,6 @@ FruityGames::Application.routes.draw do
   get "/profile" => "users#edit"
   #post "/users/:id" => "users#update"
   
-  get "articles/:id" => "articles#read"
   
   #match "/users/:name" => "users#show", :via => [:get] <=équivalents=> get "/users/:name" => "users#show"
     
@@ -27,4 +36,5 @@ FruityGames::Application.routes.draw do
   resources :users, :only => [:new, :create, :update, :edit, :show]
   resources :sessions
   resources :articles
+  resources :games
 end

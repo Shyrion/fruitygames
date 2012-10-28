@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
     	:foreign_key => "user1_id",
     	:association_foreign_key => "user2_id"
 
-	attr_accessible :username, :email, :user_type, :password, :password_confirmation
+	attr_accessible :username, :email, :user_type, :password, :password_confirmation, :coins,
+		:birthday, :inscription_date
 
 	attr_accessor :password
 	before_save :encrypt_password

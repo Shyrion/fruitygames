@@ -9,6 +9,8 @@ gem 'sqlite3'
 
 gem "bcrypt-ruby", :require => "bcrypt"
 
+gem 'rmagick'
+
 gem 'json'
 
 # Gems used only for assets and not required

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009100333) do
+ActiveRecord::Schema.define(:version => 20121010190642) do
 
   create_table "articles", :force => true do |t|
     t.integer  "user_id"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(:version => 20121009100333) do
   end
 
   add_index "articles", ["user_id"], :name => "index_articles_on_user_id"
+
+  create_table "games", :force => true do |t|
+    t.string   "name"
+    t.string   "short_description"
+    t.text     "long_description"
+    t.string   "icon_url"
+    t.text     "screenshots_url",   :default => ""
+    t.string   "game_url"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username"

@@ -13,9 +13,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(params[:article])
     @article.creation_date = DateTime.now.beginning_of_day
     @article.user = current_user
-    print "-------article user-----------"
-    print @article.user
-    print "------------------"
+    
     if @article.save
       redirect_to root_url, :notice => "Article saved"
     else

@@ -12,6 +12,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def convert_date(hash, date_symbol_or_string)
+    attribute = date_symbol_or_string.to_s
+    return Date.new(hash[attribute + '(1i)'].to_i, hash[attribute + '(2i)'].to_i, hash[attribute + '(3i)'].to_i)   
+  end
+
   def index
     @user = User.new
     @users = User.all
@@ -89,6 +94,10 @@ class UsersController < ApplicationController
 
     user[:email] = params[:user][:email]
 		user[:user_type] = params[:user_type]
+    user[:birthday] = convert_date(params[:user], :birthday)
+
+    print "----------------"
+    print user[:birthday]
 
 		if user.save()
       redirect_to "/profile", :notice => "Votre profil a été correctement mis à jour"
@@ -101,8 +110,21 @@ class UsersController < ApplicationController
   def add_friend
     user = User.find_by_id(params[:id])
 
+    # User does not exist
     if user == nil
       redirect_to root_url, :notice => "L'utilisateur n'existe pas"
+      return
+    end
+
+    # User already friend
+    if (current_user.friends.include?(user))
+      redirect_to root_url, :notice => "#{user.username} fait déjà partie de vos amis"
+      return
+    end
+
+    # User is self
+    if (current_user == user)
+      redirect_to root_url, :notice => "Vous ne pouvez pas être votre ami :)"
       return
     end
 

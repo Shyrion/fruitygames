@@ -6,7 +6,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "style", :media => "all" %>
   <%= stylesheet_link_tag    "layout", :media => "all" %>
-  <%= stylesheet_link_tag    "lightbox", :media => "all" %>
+  <%= stylesheet_link_tag    "slimbox", :media => "all" %>
   <!-- Frameworks -->
   <%= javascript_include_tag "mootools-core-1.4.5-full-compat" %>
   <!-- Objects -->
@@ -16,6 +16,10 @@
   <%= javascript_include_tag "NoticeBoxManager" %>
   <!-- Misc -->
   <%= javascript_include_tag "fruityscripts" %>
+
+  <!-- Slimbox -->
+  <%= javascript_include_tag "slimbox" %>
+
   <%= csrf_meta_tags %>
 </head>
 <body onload="initFS();">
@@ -92,7 +96,7 @@
 		<nav id="menu">
 			<ul>
 			  <li><%= link_to "Accueil", root_path %></li>
-			  <li><%= link_to "Jeux", articles_path %></li>
+			  <li><%= link_to "Jeux", games_path %></li>
 			  <li><%= link_to "Contact", articles_path %></li>
 			</ul>
 		</nav>
